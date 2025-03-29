@@ -43,12 +43,13 @@ vector<long long> matrix_mul(int n, vector<long long> &cur1, vector<long long>& 
 	return cur_mul;
 }
 
-// b는 행렬의 차수를 의미
+// b는 행렬의 제곱수를 의미
 vector<long long> recursive(int n, long long b, vector<long long> &prev, vector<long long>& matrix)
 {
 	if (b == 1) {
 		return prev;
 	}
+
 	// 입력을 제곱한다
 	vector<long long> cur = matrix_pow(n, prev);
 	
@@ -63,14 +64,11 @@ vector<long long> recursive(int n, long long b, vector<long long> &prev, vector<
 	*/
 
 	if (b % 2 == 0) {
-		//recursive(n, b / 2, matrix_pow(n, cur));
 		return recursive(n, b / 2, cur, matrix);
 	}
 	else {
-		//cur = matrix_mul(n, cur, matrix);
-		//return recursive(n, b / 2, cur, matrix);
 		cur = recursive(n, b / 2, cur, matrix);
-		//return matrix_mul(n, cur, matrix);
+		//return matrix_mul(n, cur, matrix); //홀수일 경우에 초기 matrix를 추가로 곱해주는게 아닌 prev를 곱해줘야 했다 이유가 뭐지?
 		return matrix_mul(n, cur, prev); //왜 이렇지?
 	}
 }
