@@ -14,9 +14,9 @@ void recursive(int a, int b, int n)
 
 	int c = 6 - a - b;
 
-	recursive(a, c, n - 1); //n-1개를 a에서 c로 옮기고
-	cout << a << " " << b << "\n"; // n번째를 b로 옮긴다
-	recursive(c, b, n - 1); // n-1개를 c에서 b로 옮긴다
+	recursive(a, c, n - 1); //n-1개를 a에서 c로 옮기고, 스택이므로 역순으로 이동된다
+	cout << a << " " << b << "\n"; // n번째를 b로 옮긴다, 베이스 깔기
+	recursive(c, b, n - 1); // n-1개를 c에서 b로 옮긴다, 스택이므로 다시 순서대로 쌓인다
 }
 
 int main()
