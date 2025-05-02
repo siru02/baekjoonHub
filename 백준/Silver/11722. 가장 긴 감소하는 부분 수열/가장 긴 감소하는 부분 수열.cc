@@ -15,6 +15,12 @@ if (A[i] < A[j]) { table[i] = table[i] > table[j] + 1 ? table[i] : table[j] + 1;
 3. 초기값 구하기 : table[0] = 1;
 */
 
+/*
+원리 
+1. table[i]의 값은 table[0 ~ i-1]까지의 값을 순회하면서 A[i] < A[j]이면 뒤에 A[i]를 하나 붙이므로 table[j] + 1이라는 값이 나옴을 이용하여, j를 순회하며 table[i]의 값을 구한다
+2. table[i]는 i번째 인덱스를 마지막 원소로 하는 가장 긴 부분수열의 길이이므로, table을 순회하며 가장 큰 값을 찾아낸다
+*/
+
 // 10 30 20 12 11 10 20 9의 경우
 
 vector<int> A(2000); // 입력받을 수열
@@ -36,7 +42,6 @@ int main()
 	for (int i = 1; i < n; ++i) { //i번째 원소를 table[i - 1]뒤에 붙인다
 		//15 14 13 12 15 10
 		for (int j = 0; j < i; ++j) {
-			// table[j]와 table[i]를 비교한다
 			if (A[i] < A[j]) { //A[j]가 A[i]보다 크다면 A[i]를 table[j]뒤에 붙일 수 있으므로
 // i를 마지막 원소로 하는 부분수열의 길이와 j를 마지막 원소로 하는 부분수열에 A[i]를 붙인 부분수열의 길이 비교
 				if (table[i] < table[j] + 1) 
