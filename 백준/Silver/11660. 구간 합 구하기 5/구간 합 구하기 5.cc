@@ -16,7 +16,6 @@ using namespace std;
 */
 
 int table[1025][1025];
-int arr[1025][1025];
 
 int main()
 {
@@ -29,7 +28,6 @@ int main()
 	for (int y = 1; y <= N; ++y) {
 		for (int x = 1; x <= N; ++x) {
 			cin >> val;
-			arr[y][x] = val;
 			table[y][x] = table[y - 1][x] + table[y][x - 1] - table[y - 1][x - 1] + val;
 		}
 	}
