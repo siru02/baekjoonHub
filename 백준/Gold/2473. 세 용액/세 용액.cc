@@ -33,7 +33,7 @@ int main()
     long long ans[3];
     long long minVal = 4e18;
 
-    // 이분탐색 풀이 -> 두개의 원소 정해놓고, 탐색
+    /*// 이분탐색 풀이 -> 두개의 원소 정해놓고, 탐색
     for (int i = 0; i < N; ++i) {
         for (int j = i + 1; j < N; ++j) {
             // (i, j)에 해당하는 최적해 k를 찾는다
@@ -57,10 +57,10 @@ int main()
                 }
             }
         }
-    }
+    }*/
     
 
-    /*// 투포인터 풀이
+    // 투포인터 풀이
     for (int i = 0; i < N - 2; ++i) {
         int left = i + 1;
         int right = N - 1;
@@ -79,7 +79,7 @@ int main()
                 --right;
             }
         }
-    }*/
+    }
 
     sort(ans, ans + 3);
     cout << ans[0] << " " << ans[1] << " " << ans[2];
