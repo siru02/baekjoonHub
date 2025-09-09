@@ -36,7 +36,11 @@ int table[10002]; // index원을 만드는데 필요한 경우의 수
 
 // table[i]는 특정 코인을 사용하지 않는 경우 + 특정 코인을 적어도 1개 사용하는 경우
 // coin을 순회하며 특정 coin을 사용해서 i원을 만들 수 있는 table[i]를 생성한다
-// 
+/*
+* 바깥for문의 첫 루프에서는 coin[0]만을 사용해서 만들 수 있는 금액을 table에 값들을 추가
+* 두번째 루프에서는 table에 coin[0]만을 이용해서 j금액을 만들 수 있는것을 기록된상태로 시작
+* table[j] += table[j-coin[1]]로 j금액에 coin[1]을 사용해서 만들 수 있는 경우를 추가
+*/
 
 int main()
 {
@@ -46,16 +50,16 @@ int main()
     cin >> N >> K;
     for (int i = 0; i < N; ++i) {
         cin >> coin[i];
-        //table[coin[i]] = 1; // 초기값
+        //table[coin[i]] = 1; // 초기값 -> 특정 코인을 사용하여 더하는 개수를 구해야하는데 이러면 초기값 오류
     }
-    table[0] = 1;
+    table[0] = 1; // table[coin[i]]가 자연스럽게 1이 될 수 있도록 초기화하는 방법
 
     // coin배열을 순회
     for (int i = 0; i < N; ++i) {
-
         // coin[i]원 이상을 순회하며, j원을 만들 수 있는 경우를 추가
-        for (int j = coin[i]; j <= K; ++j) {
+        for (int j = coin[i] + 1; j <= K; ++j) {
             table[j] += table[j - coin[i]];
+            // 이전 j루프에서 coin[i]를 사용하여 만들 수 있는 경우의 수가 이미 더해졌음
         }
     }
 
