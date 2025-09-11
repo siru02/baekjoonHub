@@ -1,6 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <stack>
 #include <queue>
 #include <utility>
 #include <vector>
@@ -88,8 +87,7 @@ int main()
         int puyopuyo = 0;
         for (int y = 0; y < 12; ++y) {
             for (int x = 0; x < 6; ++x) {
-                if (visited[y][x] == 1) continue;
-                if (board[y][x] == '.') continue;
+                if (visited[y][x] == 1 || board[y][x] == '.') continue;
                 puyopuyo += bfs(x, y);
             }
         }
