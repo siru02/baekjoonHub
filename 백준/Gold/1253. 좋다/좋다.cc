@@ -43,54 +43,31 @@ int main()
     for (int i = 0; i < N; ++i) {
         cin >> arr[i];
     }
-    //sort(arr, arr + N);
-
-    int idx = 0;
-    for (int i = 0; i < N - 1; ++i) {
-        for (int j = i + 1; j < N; ++j) {
-            table[idx++] = { arr[i] + arr[j], i, j };
-        }
-    }
-    sort(table, table + idx, [](sum a, sum b) {return a.val < b.val; });
+    sort(arr, arr + N);
     
     int cnt = 0;
-    for (int i = 0; i < N; ++i) { //N개의 arr을 순회
-        int target = arr[i]; // target자체가 자기 자신을 포함한 합일 수 있는 경우를 체크해야함
-        int lo = -1, hi = idx;
-        bool found = false;
 
-        while (lo + 1 < hi) {
-            int mid = (lo + hi) / 2;
-            if (table[mid].val == target) {
-                int left = mid;
-                int right = mid;
-
-                // 왼쪽으로 확장
-                while (left >= 0 && table[left].val == target) {
-                    if (table[left].idx1 != i && table[left].idx2 != i) {
-                        found = true;
-                        break;
-                    }
-                    left--;
+    for (int i = 0; i < N; ++i) {
+        int target = arr[i];
+        int st = 0, ed = N - 1;
+        while (ed > st) {
+            int sum = arr[st] + arr[ed];
+            if (target == sum) {
+                if (st != i && ed != i) {
+                    ++cnt;
+                    break;
                 }
-                // 오른쪽으로 확장
-                while (!found && right < idx && table[right].val == target) {
-                    if (table[right].idx1 != i && table[right].idx2 != i) {
-                        found = true;
-                        break;
-                    }
-                    right++;
-                }
-                break; // target 구간 다 확인했으니 종료
+                else if (st == i) ++st;
+                else if (ed == i) --ed;
             }
-            else if (table[mid].val > target) {
-                hi = mid;
+            else if (target > sum) {
+                ++st;
             }
             else {
-                lo = mid;
+                --ed;
             }
         }
-        if (found) cnt++;
     }
+    
     cout << cnt;
 }
