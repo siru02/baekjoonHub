@@ -39,42 +39,43 @@ int main()
         cin >> A[i];
     }
     sort(A, A + N);
-    /*for (int i = 0; i < N; ++i) {
-        cout << A[i] << " ";
-    }
-    cout << "\n";*/
 
     long long zeroCnt = 0;
     // i < j < k 인덱스로 k를 이분탐색
     // 첫번째 원소를 고정하여 0부터 N-3까지 탐색
     for (int i = 0; i < N - 2 && A[i] <= 0; ++i) {
-        // 두번째 원소를 고정하여 i+1부터 N-2까지 탐색
-        for (int j = i + 1; j < N - 1; ++j) {
-            zeroCnt += upper_bound(A + j + 1, A + N, -(A[i] + A[j])) - lower_bound(A + j + 1, A + N, -(A[i] + A[j]));
-            /*int lo = j;
-            int hi = N;
-            int couple = A[i] + A[j];
-            while (lo + 1 < hi) {
-                int mid = (lo + hi) / 2;
-                int val = couple + A[mid];
-                if (val == 0) {
-                    int st = mid, ed = mid;
-                    while (st > j && A[st] == A[mid]) --st;
-                    while (ed < N && A[ed] == A[mid]) ++ed;
-                    while (++st < ed) {
-                        //cout << "(" << i << "," << j << "," << st << "):";
-                        //cout << "(" << A[i] << "," << A[j] << "," << A[st] << ")\n";
-                        zeroCnt += 1;
-                    }
+        int st = i + 1;
+        int ed = N - 1;
+        while (st < ed) {
+            int sum = A[i] + A[st] + A[ed];
+            if (sum == 0) {
+                // 양끝이 같은값이면 사이 범위의 개수를 모두 더한다
+                if (A[st] == A[ed]) {
+                    long long cnt = ed - st + 1;
+                    zeroCnt += cnt * (cnt - 1) / 2; // nC2계산
                     break;
                 }
-                else if (val > 0) {
-                    hi = mid;
-                }
                 else {
-                    lo = mid;
+                    // A[st]와 A[ed]가 다른 값이면 A[st]와 같은 cntL개수, A[ed]와 같은 cntR개수 카운트
+                    long long cntL = 1, cntR = 1;
+
+                    while (st + 1 < ed && A[st] == A[st + 1]) {
+                        ++st; ++cntL;
+                    }
+                    while (ed - 1 > st && A[ed] == A[ed - 1]) {
+                        --ed; ++cntR;
+                    }
+                    zeroCnt += cntL * cntR;
+                    ++st;
+                    --ed;
                 }
-            }*/
+            }
+            else if (sum > 0) {
+                --ed;
+            }
+            else {
+                ++st;
+            }
         }
     }
 
