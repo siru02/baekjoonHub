@@ -58,11 +58,6 @@ int main()
             }
             nodes[++idx] = nextNode;
          }
-        //cout << startNode << ": ";
-        //for (int k = 0; k <= idx; ++k) {
-        //    cout << nodes[k] << " ";
-        //}
-        //cout << "\n";
     }
 
     sort(ans, ans + ansCnt);
